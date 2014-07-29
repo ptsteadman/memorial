@@ -12,10 +12,14 @@ Memorial.egg-info/not-zip-safe
 Memorial.egg-info/requires.txt
 Memorial.egg-info/top_level.txt
 memorial/__init__.py
+memorial/parser_tests.py
 memorial/tests.py
 memorial/views.py
+memorial/data/messages_all.txt
 memorial/static/pyramid-16x16.png
 memorial/static/pyramid.png
 memorial/static/theme.css
 memorial/static/theme.min.css
 memorial/templates/mytemplate.pt
+memorial/util/MessageParser.py
+memorial/util/__init__.py
