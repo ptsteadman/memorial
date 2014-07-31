@@ -20,6 +20,5 @@ memorial/static/pyramid-16x16.png
 memorial/static/pyramid.png
 memorial/static/theme.css
 memorial/static/theme.min.css
-memorial/templates/mytemplate.pt
 memorial/util/MessageParser.py
 memorial/util/__init__.py

@@ -1,0 +1,15 @@
+<!doctype html5>
+<html>
+<head>
+  <title>9/11 Memorial</title>
+  <script src="{{ request.static_url('memorial:static/socket.io.min.js') }}"></script>
+  <script src="{{ request.static_url('memorial:static/jquery-1.11.1.min.js') }}"></script>
+  <script src="{{ request.static_url('memorial:static/app.js') }}"></script>
+  <link rel="stylesheet" href="{{ request.static_url('memorial:static/styles.css') }}" >
+</head>
+<body>
+  <h1>Pager Messages From September 11th and 12th, 2001.</h1>
+  <h3>Messages were sent 13 years ago today.  Click on a message to hold on to it.</h3>
+  <hr>
+  <div id="messages"></div>
+</body>
