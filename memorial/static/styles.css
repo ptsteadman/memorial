@@ -1,6 +1,49 @@
 body {
     background-color: black;
-    color: white;
+    color: #eee;
     font-family: arial;
+    min-width: 640px;
+}
+
+h1, h3 {
+    color: white;
+}
+
+.container {
+    margin: 10px 20px;
+}
+
+.message {
+    overflow: hidden;
+    margin: 10px 0px;
+}
+
+.datetime {
+    font-weight: bold;
+    float: left;
+    width: 20%;
+    max-width: 215px;
+    color: darkred;
+}
+
+
+@media (max-width: 1000px) {
+    .date {
+        display: none;
+    }
+}
+
+.text {
+    float: left;
+    width: 80%;
+    max-width: 1000px;
+}
+
+#bgvid {
+    position: fixed; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto; z-index: -100;
+    background-size: cover;
+    opacity: .05;
 }
 

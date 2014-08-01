@@ -1,6 +1,7 @@
 from pyramid.view import view_config
 from socketio.namespace import BaseNamespace
 from socketio import socketio_manage
+from time import strftime, strptime
 import gevent
 from util.MessageParser import MessageParser 
 import os
@@ -16,7 +17,15 @@ class MessageNamespace(BaseNamespace):
 
     def job_send_message(self):
         while True:
-            self.emit("message", parser.get_messages_for_now())
+            messages = parser.get_messages_for_now()
+            # reformat messages serverside
+            for message in messages:
+                datetime = strptime("{0} {1}".format(message['date'],
+                    message['time']), "%Y-%m-%d %H:%M:%S")
+                message['date'] = strftime("%m/%d/%Y", datetime)
+                message['time'] = strftime("%I:%M:%S %p", datetime)
+
+            self.emit("message", messages)
             gevent.sleep(1)
 
 @view_config(route_name='messages', renderer='memorial:templates/messages.jinja2')

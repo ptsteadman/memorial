@@ -4,12 +4,21 @@
   <title>9/11 Memorial</title>
   <script src="{{ request.static_url('memorial:static/socket.io.min.js') }}"></script>
   <script src="{{ request.static_url('memorial:static/jquery-1.11.1.min.js') }}"></script>
+  <script src="{{ request.static_url('memorial:static/vticker.js') }}"></script>
   <script src="{{ request.static_url('memorial:static/app.js') }}"></script>
   <link rel="stylesheet" href="{{ request.static_url('memorial:static/styles.css') }}" >
 </head>
 <body>
-  <h1>Pager Messages From September 11th and 12th, 2001.</h1>
-  <h3>Messages were sent 13 years ago today.  Click on a message to hold on to it.</h3>
-  <hr>
-  <div id="messages"></div>
+  <div class='container'>
+      <h1>Pager Messages From September 11th and 12th, 2001.</h1>
+      <h3>Messages were sent 13 years ago today.  Click on a message to hold it.</h3>
+      <hr>
+      <div id="messages">
+         <ul id="message-list">
+         </ul>
+      </div>
+  </div>
+<video autoplay muted loop id="bgvid">
+  <source src="{{ request.static_url('memorial:static/leaves.mp4') }}" type="video/mp4">
+</video>
 </body>
