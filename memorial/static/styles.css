@@ -44,6 +44,8 @@ h1, h3 {
     min-width: 100%; min-height: 100%;
     width: auto; height: auto; z-index: -100;
     background-size: cover;
-    opacity: .05;
+    opacity: .25;
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
 }
 
