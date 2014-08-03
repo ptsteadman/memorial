@@ -39,13 +39,13 @@ h1, h3 {
     max-width: 1000px;
 }
 
-#bgvid {
+#bg {
     position: fixed; right: 0; bottom: 0;
     min-width: 100%; min-height: 100%;
     width: auto; height: auto; z-index: -100;
     background-size: cover;
-    opacity: .25;
-    filter: blur(6px);
-    -webkit-filter: blur(6px);
+    opacity: .09;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
 }
 
