@@ -5,6 +5,7 @@ from time import strftime, strptime
 import gevent
 from util.MessageParser import MessageParser 
 import os
+import copy
 
 filepath = os.path.join(os.path.dirname(__file__), 'data',
     'messages_all.txt')
@@ -19,13 +20,16 @@ class MessageNamespace(BaseNamespace):
         while True:
             messages = parser.get_messages_for_now()
             # reformat messages serverside
+            formatted_messages = []
             for message in messages:
+                message_copy = copy.deepcopy(message)
                 datetime = strptime("{0} {1}".format(message['date'],
                     message['time']), "%Y-%m-%d %H:%M:%S")
-                message['date'] = strftime("%m/%d/%Y", datetime)
-                message['time'] = strftime("%I:%M:%S %p", datetime)
+                message_copy['date'] = strftime("%m/%d/%Y", datetime)
+                message_copy['time'] = strftime("%I:%M:%S %p", datetime)
+                formatted_messages.append(message_copy)
 
-            self.emit("message", messages)
+            self.emit("message", formatted_messages)
             gevent.sleep(1)
 
 @view_config(route_name='messages', renderer='memorial:templates/messages.jinja2')
