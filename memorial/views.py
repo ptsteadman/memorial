@@ -1,4 +1,5 @@
 from pyramid.view import view_config
+from pyramid.response import Response
 from socketio.namespace import BaseNamespace
 from socketio import socketio_manage
 from time import strftime, strptime
@@ -38,7 +39,7 @@ def messages(request):
 
 @view_config(route_name='socketio_service')
 def socketio_service(request):
-    retval = socketio_manage(request.environ, { '/message': MessageNamespace },
+    socketio_manage(request.environ, { '/message': MessageNamespace },
             request=request)
-    return retval
+    return Response('')
 

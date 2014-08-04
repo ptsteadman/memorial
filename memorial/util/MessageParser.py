@@ -21,7 +21,7 @@ class MessageParser:
                     if msg['id'] not in self.msg_id_dict:
                         self.msg_id_dict[msg['id']] = msg
                     else:
-                        self.msg_id_dict[msg['id']]['text'] +=  "\n" + msg['text']
+                        self.msg_id_dict[msg['id']]['text'] +=  "<br>" + msg['text']
 
         for msg in self.msg_id_dict.values(): 
             self.msg_time_dict[msg['time']].append(msg)
