@@ -15,28 +15,30 @@ h1, h3 {
 
 .message {
     overflow: hidden;
-    margin: 10px 0px;
+    margin: 12px 0px;
 }
 
 .datetime {
+    font-size: 16px;
     font-weight: bold;
     float: left;
-    width: 20%;
-    max-width: 215px;
+    width: 24%;
     color: darkred;
+    margin-right: 1%;
 }
 
-
+/*
 @media (max-width: 1000px) {
     .date {
         display: none;
     }
 }
+*/
 
 .text {
     float: left;
-    width: 80%;
-    max-width: 1000px;
+    width: 75%;
+    max-width: 1100px;
 }
 
 #bg {
@@ -46,5 +48,10 @@ h1, h3 {
     opacity: .05;
     filter: blur(7px);
     -webkit-filter: blur(7px);
+}
+
+#clicked-on {
+    position: absolute;
+    opacity: .75;
 }
 
