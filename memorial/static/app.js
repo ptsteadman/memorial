@@ -16,10 +16,12 @@ $(document).ready(function(){
             $message.append("<div class='text'>" + message['text'] + "</div>");
             $message.hide().prependTo("#messages").slideDown(150);
             $(".message").on('mousedown', function(e){
-                console.log('clicked')
-                $("#clicked-on").html($(e.target).html())
-                $("#clicked-on").css("left", $(e.target).position().left );
-                $("#clicked-on").css("top", $(e.target).position().top );
+                $("#clicked-on").html($(this).html())
+                $("#clicked-on").css("display", "block" );
+                $("#clicked-on").css("right", $(this).position().right );
+                $("#clicked-on").css("left", $(this).position().left );
+                $("#clicked-on").css("top", $(this).position().top - 4);
+                
             });
         }
         
@@ -28,6 +30,10 @@ $(document).ready(function(){
         }
     }
 
+    $(document).mouseup(function(){
+            $("#clicked-on").html("") 
+            $("#clicked-on").css("display", "none");
+    })
     setInterval(pullFromQueue, 330);
 
 })

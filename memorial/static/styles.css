@@ -51,7 +51,12 @@ h1, h3 {
 }
 
 #clicked-on {
+    width: 90%;
     position: absolute;
-    opacity: .75;
+    color: black !important;
+    background-color: rgba(255,255,255,0.9);
+    padding: 4px 2px;
+    opacity: .8;
+    display: none;
 }
 
