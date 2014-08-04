@@ -1,4 +1,4 @@
-<!doctype html5>
+<!doctype html>
 <html>
 <head>
   <title>9/11 Memorial</title>
@@ -10,13 +10,15 @@
 </head>
 <body>
   <div class='container'>
+    <div id='header'>
       <h1>Pager Messages From September 11th and 12th, 2001.</h1>
       <h3>Messages were sent 13 years ago today.  Click on a message to hold it.</h3>
       <hr>
-      <div id="messages">
-         <ul id="message-list">
-         </ul>
-      </div>
+    </div>
+    <div id="messages">
+      <ul id="message-list">
+      </ul>
+    </div>
   </div>
   <img id="bg" src="{{ request.static_url('memorial:static/tree.jpg') }}" >
 </body>
