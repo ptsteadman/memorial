@@ -14,10 +14,10 @@ $(document).ready(function(){
             $message = $("<div class='message'></div>");
             $message.append("<div class='datetime'>" + message['time'] + "<span class='date'> "  + message['date'] + "</span></div>");
             $message.append("<div class='text'>" + message['text'] + "</div>");
-            $message.hide().prependTo("#messages").slideDown(150);
+            $message.hide().prependTo("#messages").slideDown(330);
         }
         
-        if(($("#messages").height() + 36 +  $("#header").height()) >= $(window).height()){
+        if(($("#messages").height() - 1000 +  $("#header").height()) >= $(window).height()){
             $(".message:last").fadeOut(300, function(){ $(this).remove(); })
         }
     }
