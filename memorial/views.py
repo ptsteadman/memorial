@@ -10,7 +10,10 @@ import copy
 
 filepath = os.path.join(os.path.dirname(__file__), 'data',
     'messages_all.txt')
-parser = MessageParser(filepath)
+shelvepath = os.path.join(os.path.dirname(__file__), 'data',
+    'msg_time_dict.shelf')
+
+parser = MessageParser(filepath, shelvepath)
 
 class MessageNamespace(BaseNamespace):
     def initialize(self):
