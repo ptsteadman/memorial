@@ -15,13 +15,12 @@ h1, h3 {
 }
 
 .message {
-    font-size: 18px;
     overflow: hidden;
     margin: 12px 0px;
 }
 
 .datetime {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     float: left;
     width: 24%;
