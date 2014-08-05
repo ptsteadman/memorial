@@ -34,9 +34,11 @@ class MessageParser:
             for line in f:
                 msg = self.parse_message(line)
                 count = count + 1
-                print count
+                print str(float(count)/float(500000)) + "\r",
                 if msg is not None and msg['type'] == "ALPHA":
                     msg_time = self.time_obj(msg['time'])
+                    # unholy mess to bucketize messages with the same
+                    # id into 5 minute buckets...
                     if msg['id'] not in self.msg_id_dict:
                         self.msg_id_dict[msg['id']] = { msg_time : msg }
                     else:
@@ -44,7 +46,8 @@ class MessageParser:
                         for time_bkt in self.msg_id_dict[msg['id']]:
                             t_delta = msg_time - time_bkt
                             if abs(t_delta) < 60*5:
-                                self.msg_id_dict[msg['id']][time_bkt]['text'] +=  "<br>" + msg['text']
+                                self.msg_id_dict[msg['id']][time_bkt]['text'] += \
+                                    "<br>" + msg['text']
                                 appended = True
                         if not appended:
                             self.msg_id_dict[msg['id']][msg_time] =  msg
