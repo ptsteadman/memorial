@@ -3,11 +3,28 @@ body {
     color: white;
     font-family: 'Helvetica', arial, sans-serif;
     font-weight: 400;
-    min-width: 640px;
+    min-width: 800px;
 }
 
 h1, h3 {
     color: white;
+}
+
+input[type=text] {
+    width: 20px;
+    border: 2px solid white;
+} 
+
+input[type=button] {
+    border: 2px solid #eee;
+    background-color: #eee;
+    margin: 0px 5px;
+}
+
+#controls {
+   margin: -12px 0px 12px 5px;
+   display: none;
+   opacity: .95;
 }
 
 #expand {

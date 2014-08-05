@@ -2,6 +2,7 @@ $(document).ready(function(){
     var messages = io.connect("/message");
     var queue = Array() 
     var container = Array()
+    $("#expand").click(function(){ $("#controls").toggle()});
     messages.on('message', function(data){
         data.forEach(function(message){
             queue.push(message);
