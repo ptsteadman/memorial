@@ -7,7 +7,9 @@ class ParserTests(unittest.TestCase):
         import os
         filepath = os.path.join(os.path.dirname(__file__), 'data',
             'messages_all.txt')
-        self.parser = MessageParser(filepath)
+        shelvepath = os.path.join(os.path.dirname(__file__), 'data',
+            'msg_time_dict.shelf')
+        self.parser = MessageParser(filepath, shelvepath)
 
     def test_parse(self):
         import os
@@ -21,7 +23,10 @@ class ParserTests(unittest.TestCase):
     def test_get_messages_for_now(self):
         print self.parser.get_messages_for_now()
 
-
+    def test_get_messages_for_time(self):
+        from datetime import datetime
+        dt = datetime.strptime("2001-09-13 03:00:00", "%Y-%m-%d %H:%M:%S")
+        print self.parser.get_messages_for_time(dt)
                     
 
 

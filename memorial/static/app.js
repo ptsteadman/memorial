@@ -2,6 +2,27 @@ $(document).ready(function(){
     var messages = io.connect("/message");
     var queue = Array() 
     var container = Array()
+    
+    // controls code
+    $("#settime").click(function(){
+        var hours = $("#hours").val();
+        var minutes = $("#minutes").val();
+        var seconds = $("#seconds").val();
+        time = hours + ":" + minutes + ":" + seconds
+        messages.emit('settime',time);
+    });
+
+    messages.on('settime-status', function(data){
+        if (data == 'success'){
+            $("#settime-msg").html("Time set.");
+            $("#messages").empty();
+            queue = Array()
+         } else {
+            $("#settime-msg").html("Invalid time.");
+          }
+        });
+
+
     $("#expand").click(function(){ $("#controls").toggle()});
     messages.on('message', function(data){
         data.forEach(function(message){
@@ -25,7 +46,7 @@ $(document).ready(function(){
             $message.append("<div class='datetime'>" + message['time'] + "<span class='date'> "  + message['date'] + "</span></div>");
             $message.append("<div class='text'>" + message['text'] + "</div>");
             $message.css({opacity: '0'})
-            $message.hide().prependTo("#messages").slideDown(100).animate({ opacity: '1'},200);
+            $message.hide().prependTo("#messages").slideDown(200).animate({ opacity: '1'},200);
         }
         
         if(($("#messages").height() - 1000 +  $("#header").height()) >= $(window).height()){
@@ -33,6 +54,6 @@ $(document).ready(function(){
         }
     }
 
-    setInterval(pullFromQueue, 330);
+    setInterval(pullFromQueue, 200);
 
 })

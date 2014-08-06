@@ -22,9 +22,13 @@ input[type=button] {
 }
 
 #controls {
-   margin: -12px 0px 12px 5px;
+   margin: -12px 0px 12px 10px;
    display: none;
    opacity: .95;
+}
+
+#settime-msg {
+    color: darkred;
 }
 
 #expand {

@@ -1,37 +1,42 @@
 import re
 from time import localtime, strftime, strptime, mktime
+from datetime import datetime
 from collections import defaultdict
 import shelve
 
 
-class MessageParser:
+class MessageParser(object):
     ''' Class used for parsing the 9/11 pager data, and inserting to SQL db. '''
-    
+
     @staticmethod
     def time_obj(timestr):
+        ''' Convert time to seconds. '''
         return mktime(strptime(timestr, "%H:%M:%S"))
 
     def __init__(self, filepath, shelvepath):
-        ''' Creates a dict with message time as keys. '''
+        ''' Check to see if we have a "shelved" version of time -> msg
+            dictionary.  If we don't, create it.  '''
         self.shelvepath = shelvepath
         self.filepath = filepath
-        s = shelve.open(shelvepath)
-        if s.has_key('msg_time_dict'):
-            self.msg_time_dict = s['msg_time_dict']
-            s.close()
+        self.msg_time_dict = None
+        shelf = shelve.open(shelvepath)
+        if shelf.has_key('msg_time_dict'):
+            self.msg_time_dict = shelf['msg_time_dict']
+            shelf.close()
         else:
             self.generate_msg_time_dict()
-            s['msg_time_dict'] = self.msg_time_dict
-            s.close()
+            shelf['msg_time_dict'] = self.msg_time_dict
+            shelf.close()
 
     def generate_msg_time_dict(self):
-        self.msg_id_dict = {}
+        ''' Creates a dict with message time as keys. '''
+        msg_id_dict = {}
         self.msg_time_dict = defaultdict(list)
-        with open(self.filepath,'r') as f:
+        with open(self.filepath, 'r') as msg_file:
             # First we create a dictionary by msg id,
             # in order to concatenate broken-apart messages.
             count = 0
-            for line in f:
+            for line in msg_file:
                 msg = self.parse_message(line)
                 count = count + 1
                 print str(float(count)/float(500000)) + "\r",
@@ -39,28 +44,35 @@ class MessageParser:
                     msg_time = self.time_obj(msg['time'])
                     # unholy mess to bucketize messages with the same
                     # id into 5 minute buckets...
-                    if msg['id'] not in self.msg_id_dict:
-                        self.msg_id_dict[msg['id']] = { msg_time : msg }
+                    if msg['id'] not in msg_id_dict:
+                        msg_id_dict[msg['id']] = {msg_time : msg}
                     else:
                         appended = False
-                        for time_bkt in self.msg_id_dict[msg['id']]:
+                        for time_bkt in msg_id_dict[msg['id']]:
                             t_delta = msg_time - time_bkt
                             if abs(t_delta) < 60*5:
-                                self.msg_id_dict[msg['id']][time_bkt]['text'] += \
+                                msg_id_dict[msg['id']][time_bkt]['text'] += \
                                     "<br>" + msg['text']
                                 appended = True
                         if not appended:
-                            self.msg_id_dict[msg['id']][msg_time] =  msg
+                            msg_id_dict[msg['id']][msg_time] = msg
 
-        for msg_id in self.msg_id_dict: 
-            for time_bkt in self.msg_id_dict[msg_id]:
-                msg = self.msg_id_dict[msg_id][time_bkt]
+        for msg_id in msg_id_dict:
+            for time_bkt in msg_id_dict[msg_id]:
+                msg = msg_id_dict[msg_id][time_bkt]
                 self.msg_time_dict[msg['time']].append(msg)
 
     def get_messages_for_now(self):
-        ''' Return a list of messages for the current time on 9/11 '''
-        now = strftime("%H:%M:%S", localtime())
-        messages = self.msg_time_dict[now]
+        ''' Return a list of messages for the current time on 9/11. '''
+        now = datetime.now()
+        now_str = now.strftime("%H:%M:%S")
+        messages = self.msg_time_dict[now_str]
+        return messages
+
+    def get_messages_for_time(self, time_obj):
+        ''' Return a list of messages for the specified time. '''
+        time_str = time_obj.strftime("%H:%M:%S") 
+        messages = self.msg_time_dict[time_str]
         return messages
 
     def parse_message(self, message):
@@ -73,10 +85,10 @@ class MessageParser:
                          r"(ALPHA|ST NUM|SH/TONE)\s+" \
                          r"(.*)" \
 
-        p = re.compile(message_format)
-        m = p.match(message)
+        message_regex = re.compile(message_format)
+        message_groups = message_regex.match(message)
         try:
-            groups = m.groups()
+            groups = message_groups.groups()
             message_dict = {
                 'date': groups[0],
                 'time': groups[1],
@@ -90,7 +102,3 @@ class MessageParser:
             return message_dict
         except AttributeError:
             return None 
-
-
-
-     
