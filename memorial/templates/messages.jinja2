@@ -1,29 +1,36 @@
 <!doctype html>
 <html>
 <head>
-  <title>9/11 Memorial</title>
-  <script src="{{ request.static_url('memorial:static/socket.io.min.js') }}"></script>
-  <script src="{{ request.static_url('memorial:static/jquery-1.11.1.min.js') }}"></script>
-  <script src="{{ request.static_url('memorial:static/app.js') }}"></script>
-  <link rel="stylesheet" href="{{ request.static_url('memorial:static/styles.css') }}" >
-  <link rel="shortcut icon"  href="{{ request.static_url('memorial:static/favicon.ico') }}">
+<title>9/11 Memorial</title>
+<script src="{{ request.static_url('memorial:static/socket.io.min.js') }}"></script>
+<script src="{{ request.static_url('memorial:static/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ request.static_url('memorial:static/app.js') }}"></script>
+<link rel="stylesheet" href="{{ request.static_url('memorial:static/styles.css') }}" >
+<link rel="shortcut icon"  href="{{ request.static_url('memorial:static/favicon.ico') }}">
 </head>
 <body>
-  <div class='container'>
-    <div id='header'>
-        <h1>Pager Messages From September 11th, 2001. <span id='expand'>[+]</span></h1>
-        <div id='controls'>
-            <input id="hours" maxlength="2" type="text">:
-            <input id="minutes" maxlength="2" type="text">:
-            <input id="seconds" maxlength="2" type="text">
-            <input id="settime" type="button" value="Set Time">
-            <span id="settime-msg">24 hr time format, EST</span>
-        </div>
-      <hr>
+<div class='container'>
+  <div id='header'>
+    <h1>Pager Messages From September 11th, 2001. <span id='expand'>[<span
+          id="plus-minus">+</span>]</span></h1>
+    <div id='controls-container'>
+      <form id='controls'>
+        <input id="hours" maxlength="2" type="text">:
+        <input id="minutes" maxlength="2" type="text">:
+        <input id="seconds" maxlength="2" type="text">
+        <input id="settime" type="button" value="Set Time">
+      </form>
+      <div id="settime-msg">Enter times in 24 hour time format, Eastern
+        Standard Time.</div>
     </div>
-    <div id="messages">
-    </div>
+    <hr>
   </div>
-  <img id="bg" src="{{ request.static_url('memorial:static/tree.jpg') }}" >
-  <div id="clicked-on"></div>
-</body>
+  <div id="messages">
+    <div id="welcome">
+      Click or touch a message to hold it in place. <br>
+      <a target='_blank'  href='http://911.wikileaks.org/'>Data Source</a>
+    </div>
+    <div id="clicked-on"></div>
+  </div>
+  <img id="bg" alt='survivor-tree'  src="{{ request.static_url('memorial:static/tree.jpg') }}" >
+  </body>

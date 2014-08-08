@@ -1,6 +1,0 @@
-pyramid
-pyramid_jinja2
-pyramid_debugtoolbar
-waitress
-gevent
-gevent-socketio

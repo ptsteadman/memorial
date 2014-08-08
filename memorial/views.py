@@ -25,9 +25,9 @@ class MessageNamespace(BaseNamespace):
             self.session['time'] = datetime.strptime(time_str, "%H:%M:%S")
         except ValueError:
             print "Invalid Time!"
-            self.emit("settime-status", "invalid");
+            self.emit("settime-status", "failure");
         else:
-            self.emit("settime-status", "success");
+            self.emit("settime-status", time_str);
 
     def job_send_message(self):
         self.session['time'] = datetime.now()

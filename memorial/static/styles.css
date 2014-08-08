@@ -1,3 +1,5 @@
+/* page styles */
+
 body {
     background-color: black;
     color: white;
@@ -10,25 +12,56 @@ h1, h3 {
     color: white;
 }
 
+.container {
+    margin: 10px 20px;
+}
+
+#bg {
+    position: fixed; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    width: 100%; height: 100%; z-index: -100;
+    opacity: .07;
+    filter: blur(7px);
+    -webkit-filter: blur(7px);
+}
+
+/* controls styles */
+
 input[type=text] {
     width: 20px;
     border: 2px solid white;
+    font-size: 16px;
 } 
 
 input[type=button] {
     border: 2px solid #eee;
     background-color: #eee;
-    margin: 0px 5px;
+    margin: 0px 7px;
+    font-size: 16px;
+    padding: 2px 7px;
+}
+
+#controls-container {
+    overflow: hidden;
+    display: none;
+    margin: -11px 0px 14px 0px;
 }
 
 #controls {
-   margin: -12px 0px 12px 10px;
-   display: none;
    opacity: .95;
+   float: left;
+   width: 24%;
+   height: auto;
+   margin-right: 1%;
+   margin-left: 2px;
 }
 
 #settime-msg {
     color: darkred;
+   float: left;
+   width: 74%;
+   line-height: 28px;
+   font-weight: bold;
 }
 
 #expand {
@@ -40,14 +73,32 @@ input[type=button] {
 }
 
 #expand:hover {
-    color: darkred;
     cursor: pointer;
 }
 
-.container {
-    margin: 10px 20px;
+#plus-minus {
+    font-family: monospace;
 }
 
+#plus-minus:hover {
+    color: darkred;
+    font-family: monospace;
+}
+/* welcome styles */
+
+#welcome {
+    padding-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    text-align: center;
+}
+
+#welcome a {
+    color: darkred;
+}
+
+/* message styles */
 
 .message {
     overflow: hidden;
@@ -63,14 +114,6 @@ input[type=button] {
     font-weight: bold;
 }
 
-/*
-@media (max-width: 1000px) {
-    .date {
-        display: none;
-    }
-}
-*/
-
 .text {
     float: left;
     width: 73%;
@@ -79,22 +122,15 @@ input[type=button] {
     color: #eee;
 }
 
-#bg {
-    position: fixed; right: 0; bottom: 0;
-    min-width: 100%; min-height: 100%;
-    width: 100%; height: 100%; z-index: -100;
-    opacity: .07;
-    filter: blur(7px);
-    -webkit-filter: blur(7px);
-}
 
 #clicked-on {
-    width: 90%;
     position: absolute;
-    color: black !important;
-    background-color: rgba(255,255,255,0.9);
-    padding: 4px 2px;
-    opacity: .8;
+    background-color: rgba(240,240,240,0.9);
     display: none;
+    padding: 2px 2px;
+}
+
+#clicked-on > .text {
+   color: black;
 }
 
