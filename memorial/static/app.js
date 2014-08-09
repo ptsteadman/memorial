@@ -18,7 +18,7 @@ var memorial = {
         setTimeout(function(){
             $("#welcome").fadeOut(300); 
             if (memorial.gotMessages == false) $("#loading").show(); 
-        }, 5000);
+        }, 3000);
 
         
     },

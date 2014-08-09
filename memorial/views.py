@@ -62,7 +62,12 @@ def messages(request):
     time_obj = datetime.now()
     while len(messages) < 15:
         for msg in parser.get_messages_for_time(time_obj):
-            messages.append(msg)
+            message_copy = copy.deepcopy(msg)
+            dt = datetime.strptime("{0} {1}".format(msg['date'],
+                msg['time']), "%Y-%m-%d %H:%M:%S")
+            message_copy['date'] = dt.strftime("%m/%d/%Y")
+            message_copy['time'] = dt.strftime("%I:%M:%S %p")
+            messages.append(message_copy)
         time_obj = time_obj - timedelta(seconds=1)
     return {'message': 'Memorial', 'messages': messages}
 
