@@ -60,7 +60,7 @@ class MessageNamespace(BaseNamespace):
 def messages(request):
     messages = []
     time_obj = datetime.now()
-    while len(messages) < 15:
+    while len(messages) < 25:
         for msg in parser.get_messages_for_time(time_obj):
             message_copy = copy.deepcopy(msg)
             dt = datetime.strptime("{0} {1}".format(msg['date'],
