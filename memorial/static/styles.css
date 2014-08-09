@@ -94,6 +94,15 @@ input[type=button] {
     text-align: center;
 }
 
+#loading {
+    display: none;
+    padding-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    text-align: center;
+}
+
 #welcome a {
     color: darkred;
 }

@@ -6,6 +6,7 @@ var memorial = {
         memorial.startQueue();
         memorial.initControls();
         memorial.fast = false;
+        memorial.gotMessages = false;
         
         // display help info and set up an event listener
         // to detect when we're not holding onto a message
@@ -14,7 +15,12 @@ var memorial = {
                 $("#clicked-on").css("display", "none");
         });
 
-        setTimeout(function(){ $("#welcome").fadeOut(300); }, 3000);
+        setTimeout(function(){
+            $("#welcome").fadeOut(300); 
+            if (memorial.gotMessages == false) $("#loading").show(); 
+        }, 5000);
+
+        
     },
 
     startQueue: function(){
@@ -32,6 +38,10 @@ var memorial = {
 
         // get a message from the queue and prepend it
         if (memorial.queue.length > 0){
+            if (memorial.gotMessages == false){
+                $("#loading").fadeOut(300); 
+                memorial.gotMessages = true;
+            }
             var message = memorial.queue.shift()
             $message = $("<div class='message'></div>");
             var datetime = message['time'] + " " + message['date']
