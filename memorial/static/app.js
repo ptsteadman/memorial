@@ -64,9 +64,12 @@ var memorial = {
     },
 
     initControls: function(){
+        function htmlEncode(value){ return $('<div/>').text(value).html(); }
+        function htmlDecode(value){ return $('<div/>').html(value).text(); } 
+
         $("#expand").click(function(){
             $("#controls-container").toggle();
-            var plusminus = $("#plus-minus").text() == "+" ? "-" : "+";
+            var plusminus = $("#plus-minus").text() == " + " ? " - " : " + ";
             $("#plus-minus").text(plusminus);
         });
         // read time value from text input, send to server
@@ -76,6 +79,14 @@ var memorial = {
             var seconds = $("#seconds").val();
             memorial.messages.emit('settime', hours + ":" + minutes + ":" + seconds);
         });
+
+        $("#setstate").click(function(){
+            var state_to_set = $("#setstate").attr("value") == '◼' ? 'paused' : 'running';
+            memorial.messages.emit('setstate', state_to_set);
+            var btn_value = state_to_set == 'running' ? '◼' : '►';
+            $("#setstate").attr("value", btn_value);
+        });
+
         // server responds with failure message or the time value
         memorial.messages.on('settime-status', function(data){
             if (data == 'failure'){

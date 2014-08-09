@@ -29,24 +29,32 @@ class MessageNamespace(BaseNamespace):
         else:
             self.emit("settime-status", time_str);
 
+    def on_setstate(self, state):
+        self.session['state'] = state 
+
     def job_send_message(self):
         self.session['time'] = datetime.now()
+        self.session['state'] = 'running'
         while True:
-            time_obj = self.session['time']
-            messages = parser.get_messages_for_time(time_obj)
-            # reformat messages serverside
-            formatted_messages = []
-            for message in messages:
-                message_copy = copy.deepcopy(message)
-                dt = datetime.strptime("{0} {1}".format(message['date'],
-                    message['time']), "%Y-%m-%d %H:%M:%S")
-                message_copy['date'] = dt.strftime("%m/%d/%Y")
-                message_copy['time'] = dt.strftime("%I:%M:%S %p")
-                formatted_messages.append(message_copy)
+            if self.session['state'] == 'running':
+                time_obj = self.session['time']
+                messages = parser.get_messages_for_time(time_obj)
+                # reformat messages serverside
+                formatted_messages = []
+                for message in messages:
+                    message_copy = copy.deepcopy(message)
+                    dt = datetime.strptime("{0} {1}".format(message['date'],
+                        message['time']), "%Y-%m-%d %H:%M:%S")
+                    message_copy['date'] = dt.strftime("%m/%d/%Y")
+                    message_copy['time'] = dt.strftime("%I:%M:%S %p")
+                    formatted_messages.append(message_copy)
 
-            self.emit("message", formatted_messages)
-            self.session['time'] = time_obj + timedelta(seconds=1) 
-            gevent.sleep(1)
+                self.emit("message", formatted_messages)
+                self.session['time'] = time_obj + timedelta(seconds=1) 
+                gevent.sleep(1)
+            else:
+                gevent.sleep(1)
+
 
 @view_config(route_name='messages', renderer='memorial:templates/messages.jinja2')
 def messages(request):

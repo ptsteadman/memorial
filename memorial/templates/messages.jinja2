@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>9/11 Memorial</title>
+<meta charset="utf-8">
 <script src="{{ request.static_url('memorial:static/socket.io.min.js') }}"></script>
 <script src="{{ request.static_url('memorial:static/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ request.static_url('memorial:static/app.js') }}"></script>
@@ -12,13 +13,14 @@
 <div class='container'>
   <div id='header'>
     <h1>Pager Messages From September 11th, 2001. <span id='expand'>[<span
-          id="plus-minus">+</span>]</span></h1>
+          id="plus-minus"> + </span>]</span></h1>
     <div id='controls-container'>
       <form id='controls'>
         <input id="hours" maxlength="2" type="text">:
         <input id="minutes" maxlength="2" type="text">:
         <input id="seconds" maxlength="2" type="text">
-        <input id="settime" type="button" value="Set Time">
+        <input id="settime" type="button" value="Set">
+        <input id="setstate" type="button" value="&#9724;">
       </form>
       <div id="settime-msg">Enter times in 24 hour time format, Eastern
         Standard Time.</div>
