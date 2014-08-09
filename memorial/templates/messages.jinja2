@@ -28,6 +28,12 @@
     <hr>
   </div>
   <div id="messages">
+    {% for message in messages %}
+      <div class="message">
+          <div class='datetime'>{{ message['time'] }} {{ message['date'] }}</div>
+          <div class='text'>{{ message['text'] }}</div>
+       </div>
+    {% endfor %}
     <div id="welcome">
       Click or touch a message to hold it in place. <br>
       <a target='_blank'  href='http://911.wikileaks.org/'>Data Source</a>

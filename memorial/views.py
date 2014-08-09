@@ -58,7 +58,13 @@ class MessageNamespace(BaseNamespace):
 
 @view_config(route_name='messages', renderer='memorial:templates/messages.jinja2')
 def messages(request):
-    return {'message': 'Memorial'}
+    messages = []
+    time_obj = datetime.now()
+    while len(messages) < 15:
+        for msg in parser.get_messages_for_time(time_obj):
+            messages.append(msg)
+        time_obj = time_obj - timedelta(seconds=1)
+    return {'message': 'Memorial', 'messages': messages}
 
 @view_config(route_name='socketio_service')
 def socketio_service(request):
