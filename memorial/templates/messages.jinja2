@@ -12,15 +12,12 @@
 <body>
 <div class='container'>
   <div id='header'>
-    <h1>Pager Messages From September 11th, 2001. <span id='expand'>[<span
-          id="plus-minus"> + </span>]</span></h1>
+    <h1>Pager Messages From September 11th, 2001.</h1>
     <div id='controls-container'>
       <form id='controls'>
-        <input id="hours" maxlength="2" type="text">:
-        <input id="minutes" maxlength="2" type="text">:
-        <input id="seconds" maxlength="2" type="text">
-        <input id="settime" type="button" value="Set">
-        <input id="setstate" type="button" value="&#9724;">
+        <input id="hours" maxlength="2" type="text">:<input id="minutes" maxlength="2" type="text">:<input id="seconds" maxlength="2" type="text">
+        <p id="settime">Set</p>
+        <p id="setstate">&#9724;</p>
       </form>
       <div id="settime-msg">Enter times in 24 hour time format, Eastern
         Standard Time.</div>
@@ -29,7 +26,7 @@
   </div>
   <div id="messages">
     <div id="welcome">
-      Click or touch a message to hold it in place. <br>
+      Use the controls above to set or pause time. <br>
       <a target='_blank'  href='http://911.wikileaks.org/'>Data Source</a>
     </div>
     <div id="loading">

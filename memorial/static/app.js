@@ -7,6 +7,11 @@ var memorial = {
         memorial.initControls();
         memorial.fast = false;
         memorial.gotMessages = false;
+        $("#messages").css("height",$(window).height() - 150);
+
+        $(window).resize(function(){
+            $("#messages").css("height",$(window).height() - 150);
+        });
         
         // display help info and set up an event listener
         // to detect when we're not holding onto a message
@@ -16,7 +21,7 @@ var memorial = {
         });
 
         setTimeout(function(){
-            $("#welcome").fadeOut(300); 
+            $("#welcome").fadeOut(800); 
             if (memorial.gotMessages == false) $("#loading").show(); 
         }, 3000);
 
@@ -48,7 +53,7 @@ var memorial = {
             $message.append("<div class='datetime'>" + datetime + "</div>");
             $message.append("<div class='text'>" + message['text'] + "</div>"); $message.css({opacity: '0'});
             // add event listeners to new divs
-            memorial.messageDivListeners($message);
+            //memorial.messageDivListeners($message);
             $message.hide().prependTo("#messages").slideDown(slideSpeed).animate({ opacity: '1'}, fadeSpeed);
         }
 
@@ -67,34 +72,34 @@ var memorial = {
         } 
         
         // delete messages that are outside the viewport
-        if(($("#messages").height() + 40 +  $("#header").height()) >= $(window).height()){
-            $(".message:last").fadeOut(200, function(){ $(this).off();  $(this).remove();  })
+        while($("#messages").children().length > 75){
+            $(".message:last").off();
+            $(".message:last").remove();
         }
-
+        
     },
 
     initControls: function(){
         function htmlEncode(value){ return $('<div/>').text(value).html(); }
         function htmlDecode(value){ return $('<div/>').html(value).text(); } 
 
-        $("#expand").click(function(){
-            $("#controls-container").toggle();
-            var plusminus = $("#plus-minus").text() == " + " ? " - " : " + ";
-            $("#plus-minus").text(plusminus);
-        });
         // read time value from text input, send to server
         $("#settime").click(function(){
             var hours = $("#hours").val();
             var minutes = $("#minutes").val();
             var seconds = $("#seconds").val();
             memorial.messages.emit('settime', hours + ":" + minutes + ":" + seconds);
+            memorial.messages.emit('setstate', 'running');
+            var btn_value = '◼';
+            $("#setstate").text(btn_value);
         });
 
         $("#setstate").click(function(){
-            var state_to_set = $("#setstate").attr("value") == '◼' ? 'paused' : 'running';
+            var state_to_set = $("#setstate").text() == '◼' ? 'paused' : 'running';
+            memorial.queue = Array()
             memorial.messages.emit('setstate', state_to_set);
             var btn_value = state_to_set == 'running' ? '◼' : '►';
-            $("#setstate").attr("value", btn_value);
+            $("#setstate").text(btn_value);
         });
 
         // server responds with failure message or the time value
@@ -111,6 +116,7 @@ var memorial = {
 
     messageDivListeners: function($message){
         // listener to show full text on hover
+        /*
         $message.on('mouseenter', function(e){
             $el = $(e.target);
             $el.css("max-height", "none");
@@ -118,7 +124,9 @@ var memorial = {
                 $el.css("max-height", "120px");
             })
         });
+        */
         
+        /*
         // listener to "hold" on click
         $message.on('mousedown', function(e){
             $("#clicked-on").html($(this).html())
@@ -127,6 +135,7 @@ var memorial = {
             $("#clicked-on").css("top", $(this).position().top + 10);                
             $("#clicked-on").css("width", $(this).width());
         });
+        */
     },
 
 };
