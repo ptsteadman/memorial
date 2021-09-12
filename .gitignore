@@ -1,1 +1,4 @@
 *.pyc
+pyramid.log
+pyramid.pid
+
